@@ -1,0 +1,75 @@
+INSERT INTO Titulo(puntuacion_minima, titulo) VALUES (0, 'Estudiante'), (1000, 'Gran estudiante'), (2000, 'Estudiante legendario');
+INSERT INTO Usuario(email, nombre, username, password) VALUES 	('mail@mail.com', 'Ernesto', 'xXshadowStudentXx', 'pass'), 
+																('albert.simonr@e-campus.uab.cat', 'Albert Simon', 'albertsimon', 'pass'), 
+																('eric.gonzalezp@e-campus.uab.cat', 'Eric Gonzalez', 'eg.sniper420', 'pass'), 
+																('anabanana@hotmail.com', 'Ana Plaza', 'anabanana3', 'pass'), 
+																('dummydummy@gmail.com', 'Gerard Lopez', 'idontknow', 'pass'), 
+																('kawaiipeach@gmail.com', 'Lidia', 'kawaiipeach', 'pass');
+INSERT INTO Fita(id_usuario, nombre, descripcion, hecho, fecha_limite, tipo_recordatorio) VALUES	(1, 'Pasar apunts algebra', 'pasar algebra a LaTeX', 0, '2020-04-20', 0),
+																									(1, 'Fer pràctica AC', 'ajuntar el previ i l\'informe i redactar les conclusions', 0, '2020-06-14', 0),
+																									(2, 'Mirarse dret penal', 'mirar dret penal per fer un minor l\'any que ve', 1, '2020-02-12', 0),
+																									(2, 'Mirarse dret romà', 'mirar dret romà per fer un minor l\'any que ve', 1, '2020-02-12', 0),
+																									(2, 'Mirarse dret laboral', 'mirar dret laboral per fer un minor l\'any que ve', 1, '2020-02-12', 0),
+																									(2, 'Mirarse quimica orgànica', 'mirar quimica orgànica per fer un minor l\'any que ve', 1, '2020-02-12', 0),
+																									(2, 'Mirarse física', 'mirar física per fer un minor l\'any que ve', 1, '2020-02-12', 0),
+																									(2, 'Mirarse microbiologia', 'mirar microbiologia per fer un minor l\'any que ve', 1, '2020-02-12', 0),
+																									(2, 'Mirarse arquitectura', 'mirar arquitectura per fer un minor l\'any que ve', 1, '2020-02-12', 0),
+																									(2, 'Mirarse filosofia', 'mirar filosofia per fer un minor l\'any que ve', 1, '2020-02-12', 0),
+																									(3, 'Corretgir bugs de la pràctica de MP', '', 0, '2020-01-19', 0);
+INSERT INTO Asignatura(id_usuario, nombre) VALUES 	(1, 'Algebra'),
+													(1, 'Fonaments d\'enginyeria'),
+													(1, 'Fonaments d\'informàtica'),
+													(1, 'Arquitectura de computadors'),
+													(2, 'Treball fi de grau'),
+													(3, 'Metodologia de la programació'),
+													(5, 'asignatura1'),
+													(5, 'asignatura2'),
+													(5, 'asignatura3'),
+													(5, 'asignatura4'),
+													(5, 'asignatura5'),
+													(5, 'asignatura6'),
+													(5, 'asignatura7'),
+													(5, 'asignatura8'),
+													(5, 'asignatura9'),
+													(5, 'asignatura10'),
+													(5, 'asignatura11'),
+													(5, 'asignatura12'),
+													(5, 'asignatura13'),
+													(5, 'asignatura14'),
+													(5, 'asignatura15');
+INSERT INTO Tema(id_asignatura, nombre) VALUES 	(1, 'Nombres reals i imaginàris'),
+												(1, 'Conjunt z2'),
+												(1, 'Operacions amb polinomis'),
+												(2, 'Metodologies àgils'),
+												(3, 'Control de flux'),
+												(3, 'Variables complexes'),
+												(3, 'funcions'),
+												(4, 'Accesos a cache'),
+												(4, 'Accesos a ram'),
+												(5, 'Treball de fi de grau'),
+												(6, 'Memoria dinàmica'),
+												(7, 'tema1'),
+												(7, 'tema2'),
+												(7, 'tema3'),
+												(7, 'tema4'),
+												(7, 'tema5'),
+												(7, 'tema6'),
+												(7, 'tema7'),
+												(7, 'tema8'),
+												(7, 'tema9'),
+												(7, 'tema10'),
+												(7, 'tema11');
+INSERT INTO Examen(id_asignatura, nombre, fecha) VALUES (1, 'Primer parcial', '2020-02-14'), (1, 'Examen final', '2020-05-28'), (2, 'Final', '2020-05-29');
+INSERT INTO Documento(id_tema, nombre, ruta) VALUES 	(1, 'apunts primera clase', NULL),
+														(1, 'apunts segona clase', NULL),
+														(1, 'apunts tercera clase', NULL),
+														(6, 'com crear un array i destruir-lo', '/docs/1.pdf'),
+														(4, 'calcul de bandwidth', NULL),
+														(1, 'test algebra', '/tests/1.pdf');
+INSERT INTO Resumen(id_documento, texto) VALUES 	(1, 'pues aqui hi ha moltes coses...'), (2, 'mes coses...'), (3, 'encara mes coses de algebra...'), (4, 'primer el crees i despres el pots borrar si vols'), (5, 'multipliques coses...');
+INSERT INTO Compartido(id_usuario, id_documento, codigo) VALUES (2, 4, 'abcdef'), (3, 4, 'uwu123');
+INSERT INTO Test(id_documento, nombre) VALUES (6, 'test algebra');
+INSERT INTO Pregunta(id_test, texto) VALUES (1, 'els numeros existeixen?');
+INSERT INTO Pregunta(id_test, texto) VALUES (1, 'saps calcular coses?');
+INSERT INTO Pregunta(id_test, texto) VALUES (1, 'et drogues?');
+INSERT INTO Respuesta(id_pregunta, texto) VALUES (1, 'si'), (1, 'no'), (2, 'si'), (2, 'no'), (2, 'podria ser'), (3, 'si'), (3, 'si'), (3, 'no');
