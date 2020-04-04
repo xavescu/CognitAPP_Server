@@ -4,9 +4,9 @@ require_once('controller/Controlador.php');
 
 class ControladorLogin extends Controlador {
 	public function serve() {
-		$response = checkCredentialsByUsername($_POST['username'], $_POST['password']);
+		$response = checkCredentialsByUsername($_POST['user'], $_POST['password']);
 		if (!$response)
-			$response = checkCredentialsByEmail($_POST['email'], $_POST['password']);
+			$response = checkCredentialsByEmail($_POST['user'], $_POST['password']);
 
 		if(!$response) {
 			http_response_code(401);
