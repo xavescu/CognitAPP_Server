@@ -17,7 +17,7 @@ $router->map('POST', '/login', function() {
     $c->serve();
 });
 
-$router->map('GET', '/register', function() {
+$router->map('POST', '/register', function() {
     require __DIR__ . '/controller/ControladorRegistro.php';
     $c = new ControladorRegistro();
     $c->serve();
