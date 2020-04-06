@@ -18,7 +18,8 @@ class ControladorRegistro extends Controlador {
                     http_response_code(401);
                 } else {
                     $inserted = insertUser($email, $_POST['nombre'], $_POST['user'], $_POST['password'], 0);
-                    http_response_code(200);
+                    header('Content-Type: application/json');
+                    echo '{ "status" : true }';
                 }
             }
         }
