@@ -29,6 +29,18 @@ $router->map('POST', '/storeSubject', function() {
     $c->serve();
 });
 
+$router->map('POST', '/querySubjects', function() {
+    require __DIR__ . '/controller/ControladorConsultaAsignaturas.php';
+    $c = new ControladorConsultaAsignaturas();
+    $c->serve();
+});
+
+$router->map('POST', '/deleteSubject', function() {
+    require __DIR__ . '/controller/ControladorBorrarAsignatura.php';
+    $c = new ControladorBorrarAsignatura();
+    $c->serve();
+});
+
 $match = $router->match();
 
 if( is_array($match) && is_callable( $match['target'] ) ) {
