@@ -23,6 +23,11 @@ $router->map('POST', '/register', function() {
     $c->serve();
 });
 
+$router->map('POST', '/storeSubject', function() {
+    require __DIR__ . '/controller/ControladorGuardarAsignatura.php';
+    $c = new ControladorGuardarAsignatura();
+    $c->serve();
+});
 
 $match = $router->match();
 

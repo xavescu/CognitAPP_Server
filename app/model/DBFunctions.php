@@ -64,3 +64,13 @@ function insertUser($email,$nombre,$username,$password,$karma) {
 
     return $stmt->execute();
 }
+
+function insertAsignatura($nombre,$userid) {
+    $db = getCon();
+    $insert = 'INSERT INTO Asignatura(nombre,id_usuario) VALUES' . '(:nombre,:userid)';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
