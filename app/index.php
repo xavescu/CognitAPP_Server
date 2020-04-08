@@ -23,6 +23,12 @@ $router->map('POST', '/register', function() {
     $c->serve();
 });
 
+$router->map('POST', '/mp3', function() {
+    require __DIR__ . '/controller/ControladorGenerarMp3.php';
+    $c = new ControladorGenerarMp3();
+    $c->serve();
+});
+
 $router->map('POST', '/storeSubject', function() {
     require __DIR__ . '/controller/ControladorGuardarAsignatura.php';
     $c = new ControladorGuardarAsignatura();
