@@ -41,6 +41,12 @@ $router->map('POST', '/deleteSubject', function() {
     $c->serve();
 });
 
+$router->map('POST', '/changeSubject', function() {
+    require __DIR__ . '/controller/ControladorCambiarAsignatura.php';
+    $c = new ControladorCambiarAsignatura();
+    $c->serve();
+});
+
 $match = $router->match();
 
 if( is_array($match) && is_callable( $match['target'] ) ) {

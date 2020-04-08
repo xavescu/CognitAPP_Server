@@ -84,3 +84,14 @@ function deleteAsignatura($nombre,$userid) {
 
     return $stmt->execute();
 }
+
+function updateAsignatura($nombre,$userid,$newName) {
+    $db = getCon();
+    $insert = 'UPDATE Asignatura SET nombre = :newName WHERE nombre LIKE :nombre AND id_usuario = :userid';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
+    $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
