@@ -95,3 +95,42 @@ function updateAsignatura($nombre,$userid,$newName) {
 
     return $stmt->execute();
 }
+
+function insertTema($nombre,$assigid) {
+    $db = getCon();
+    $insert = 'INSERT INTO Tema(nombre,id_asignatura) VALUES' . '(:nombre,:assigid)';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':assigid', $assigid, PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
+
+function getTemasByAssignaturaId($id) {
+    $db = getCon();
+    $stmt = $db->prepare("SELECT id, nombre FROM Tema WHERE id_asignatura = ?");
+    $stmt->execute(array($id));
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function deleteTema($nombre,$asigid) {
+    $db = getCon();
+    $insert = 'DELETE FROM Tema WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
+
+function updateTema($nombre,$asigid,$newName) {
+    $db = getCon();
+    $insert = 'UPDATE Tema SET nombre = :newName WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
+    $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
