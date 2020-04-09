@@ -29,6 +29,7 @@ $router->map('POST', '/mp3', function() {
     $c->serve();
 });
 
+/* ASIGNATURAS */
 $router->map('POST', '/storeSubject', function() {
     require __DIR__ . '/controller/ControladorGuardarAsignatura.php';
     $c = new ControladorGuardarAsignatura();
@@ -50,6 +51,31 @@ $router->map('POST', '/deleteSubject', function() {
 $router->map('POST', '/changeSubject', function() {
     require __DIR__ . '/controller/ControladorCambiarAsignatura.php';
     $c = new ControladorCambiarAsignatura();
+    $c->serve();
+});
+
+/* TEMAS */
+$router->map('POST', '/storeTema', function() {
+    require __DIR__ . '/controller/ControladorGuardarTema.php';
+    $c = new ControladorGuardarTema();
+    $c->serve();
+});
+
+$router->map('POST', '/queryTemas', function() {
+    require __DIR__ . '/controller/ControladorConsultaTemas.php';
+    $c = new ControladorConsultaTemas();
+    $c->serve();
+});
+
+$router->map('POST', '/deleteTema', function() {
+    require __DIR__ . '/controller/ControladorBorrarTema.php';
+    $c = new ControladorBorrarTema();
+    $c->serve();
+});
+
+$router->map('POST', '/changeTema', function() {
+    require __DIR__ . '/controller/ControladorCambiarTema.php';
+    $c = new ControladorCambiarTema();
     $c->serve();
 });
 
