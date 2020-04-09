@@ -19,13 +19,11 @@ class ControladorGenerarMp3 extends Controlador {
 
 		    //Path of the mp3 file
 		    $mp3 = '/tmp/' . $filename . '.mp3';
+		    //Headers
 		    header("Content-Transfer-Encoding: binary");
 		    header("Content-Type: audio/mpeg");
 		    header('Content-length: ' . filesize($mp3)); 
-		    //If this is a secret filename then don't include it.
 		    header('Content-Disposition: attachment;filename="'.$filename.'.mp3"');
-		    //Otherwise you can add it like so, in order to give the download a filename
-		    //header('Content-Disposition: inline;filename='.$filename);
 		    header('Cache-Control: no-cache');
 
 
