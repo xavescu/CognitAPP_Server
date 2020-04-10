@@ -30,7 +30,7 @@ function checkCredentialsByEmail($email, $password) {
 
 function checkEmailExists($email) {
     $db = getCon();
-    $stmt = $db->prepare("SELECT id FROM Usuario WHERE email LIKE ?");
+    $stmt = $db->prepare("SELECT id, email, nombre, username, karma FROM Usuario WHERE email LIKE ?");
     $stmt->execute(array($email));
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -38,7 +38,7 @@ function checkEmailExists($email) {
 
 function checkUserExists($username) {
     $db = getCon();
-    $stmt = $db->prepare("SELECT id FROM Usuario WHERE username LIKE ?");
+    $stmt = $db->prepare("SELECT id, email, nombre, username, karma FROM Usuario WHERE username LIKE ?");
     $stmt->execute(array($username));
 
     return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -130,6 +130,16 @@ function updateTema($nombre,$asigid,$newName) {
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
+    $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
+
+function updateUser($userid,$newName) {
+    $db = getCon();
+    $insert = 'UPDATE Usuario SET username = :newName WHERE id = :userid';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
     $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
 
     return $stmt->execute();

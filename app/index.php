@@ -79,6 +79,18 @@ $router->map('POST', '/changeTema', function() {
     $c->serve();
 });
 
+$router->map('POST', '/queryUser', function() {
+    require __DIR__ . '/controller/ControladorConsultaUsuario.php';
+    $c = new ControladorConsultaUsuario();
+    $c->serve();
+});
+
+$router->map('POST', '/updateUser', function() {
+    require __DIR__ . '/controller/ControladorCambiarUsuario.php';
+    $c = new ControladorCambiarUsuario();
+    $c->serve();
+});
+
 $match = $router->match();
 
 if( is_array($match) && is_callable( $match['target'] ) ) {
