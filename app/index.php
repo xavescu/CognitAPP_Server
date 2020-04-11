@@ -79,6 +79,32 @@ $router->map('POST', '/changeTema', function() {
     $c->serve();
 });
 
+/* RESUMENES */
+$router->map('POST', '/storeResumen', function() {
+    require __DIR__ . '/controller/ControladorGuardarResumen.php';
+    $c = new ControladorGuardarResumen();
+    $c->serve();
+});
+
+$router->map('POST', '/queryResumenes', function() {
+    require __DIR__ . '/controller/ControladorConsultaResumenes.php';
+    $c = new ControladorConsultaResumenes();
+    $c->serve();
+});
+
+$router->map('POST', '/deleteResumen', function() {
+    require __DIR__ . '/controller/ControladorBorrarResumen.php';
+    $c = new ControladorBorrarResumen();
+    $c->serve();
+});
+
+$router->map('POST', '/changeResumen', function() {
+    require __DIR__ . '/controller/ControladorCambiarResumen.php';
+    $c = new ControladorCambiarResumen();
+    $c->serve();
+});
+
+/* USER */
 $router->map('POST', '/queryUser', function() {
     require __DIR__ . '/controller/ControladorConsultaUsuario.php';
     $c = new ControladorConsultaUsuario();
