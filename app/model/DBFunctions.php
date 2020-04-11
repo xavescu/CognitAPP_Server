@@ -144,3 +144,65 @@ function updateUser($userid,$newName) {
 
     return $stmt->execute();
 }
+
+function insertDocumento($idtema, $nombre) {
+    $db = getCon();
+    $insert = 'INSERT INTO Documento(nombre,id_tema) VALUES' . '(:nombre,:idtema)';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':idtema', $idtema, PDO::PARAM_INT);
+
+    $stmt->execute();
+
+    $select = 'SELECT * FROM Documento WHERE id_tema = :idtema AND nombre = :nombre';
+    $stmt = $db->prepare($select);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':idtema', $idtema, PDO::PARAM_INT);
+
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
+function insertResumen($iddocumento, $texto) {
+    $db = getCon();
+    $insert = 'INSERT INTO Resumen(id_documento,texto) VALUES' . '(:iddocumento,:text)';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':iddocumento', $iddocumento, PDO::PARAM_STR);
+    $stmt->bindParam(':text', $texto, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
+
+function deleteDocumento($nombre,$temaid) {
+    $db = getCon();
+    $insert = 'DELETE FROM Documento WHERE nombre LIKE :nombre AND id_tema = :temaid';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
+
+function getResumenesByTemaId($id) {
+    $db = getCon();
+    $stmt = $db->prepare("SELECT D.id AS id_documento, D.nombre AS nombre, R.texto AS texto FROM Documento D JOIN Resumen R ON D.id = R.id_documento WHERE D.id_tema = ?");
+    $stmt->execute(array($id));
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function deleteResumen($nombre,$temaid) {
+    $db = getCon();
+    $delete = 'DELETE FROM Resumen WHERE id_documento LIKE (SELECT id FROM Documento WHERE nombre LIKE :nombre)';
+    $stmt = $db->prepare($delete);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+
+    return $stmt->execute();
+
+    $delete = 'DELETE FROM Documento WHERE nombre LIKE :nombre AND id_tema = :temaid';
+    $stmt = $db->prepare($delete);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
