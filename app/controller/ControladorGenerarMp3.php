@@ -13,7 +13,7 @@ class ControladorGenerarMp3 extends Controlador {
 		    $filename = $_POST['filename']; //Without extension
 
 		    //Generate the mp3
-		    $cmd = '/home/willywonka/cognitapp/app/scripts/tts.sh ' . $filename . ' "' . $text . '"';
+		    $cmd = '/var/www/app/scripts/tts.sh ' . $filename . ' "' . $text . '"';
 		    shell_exec($cmd);
 
 		    //Path of the mp3 file
