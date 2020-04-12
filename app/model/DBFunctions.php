@@ -124,13 +124,24 @@ function deleteTema($nombre,$asigid) {
     return $stmt->execute();
 }
 
-function updateTema($nombre,$asigid,$newName) {
+function updateTemaNombre($nombre,$asigid,$newName) {
     $db = getCon();
     $insert = 'UPDATE Tema SET nombre = :newName WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
     $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
+
+function updateTemaSubject($nombre,$asigid,$asignatura_id) {
+    $db = getCon();
+    $insert = 'UPDATE Tema SET id_asignatura = :asignatura_id WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
+    $stmt->bindParam(':asignatura_id', $asignatura_id, PDO::PARAM_INT);
 
     return $stmt->execute();
 }
@@ -208,21 +219,38 @@ function deleteResumen($nombre,$temaid) {
 }
 
 
-function updateResumen($nombre,$temaid,$newName, $newText, $newTema) {
+function updateResumenTexto($nombre,$temaid, $newText) {
     $db = getCon();
 
     $insert = 'UPDATE Resumen SET texto = :newText WHERE id_documento = (SELECT id FROM Documento WHERE nombre LIKE :nombre AND id_tema = :temaid)';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
-    $stmt->execute();
+    $stmt->bindParam(':newText', $newText, PDO::PARAM_STR);
 
-    $update = 'UPDATE Documento SET nombre :newName, id_tema = :newTema WHERE id_tema = :temaid AND nombre = :nombre';
+    return $stmt->execute();
+}
+
+function updateResumenNombre($nombre,$temaid,$newName) {
+    $db = getCon();
+
+    $update = 'UPDATE Documento SET nombre = :newName WHERE id_tema = :temaid AND nombre = :nombre';
+    $stmt = $db->prepare($update);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
+    $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
+
+function updateResumenTema($nombre,$temaid, $newTema) {
+    $db = getCon();
+
+    $update = 'UPDATE Documento SET id_tema = :newTema WHERE id_tema = :temaid AND nombre = :nombre';
     $stmt = $db->prepare($update);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
     $stmt->bindParam(':newTema', $newTema, PDO::PARAM_INT);
-    $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
 
     return $stmt->execute();
 }

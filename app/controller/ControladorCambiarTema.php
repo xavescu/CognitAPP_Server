@@ -4,10 +4,22 @@ require_once('controller/Controlador.php');
 class ControladorCambiarTema extends Controlador {
 
     public function serve() {
-        $inserted = updateTema($_POST['nombre'],$_POST['id'],$_POST['nuevonombre']);
-        if ($inserted == 1) {
+        $changed=false;
+        if ($_POST['nuevonombre']) {
+            $change=updateTemaNombre($_POST['nombre'],$_POST['id'],$_POST['nuevonombre']);
+            if ($change==1) {
+                $changed['nombre'] = true;
+            }
+        }
+        if ($_POST['nuevotexto']) {
+            $change=updateTemaSubject($_POST['nombre'],$_POST['id'],$_POST['nuevaasignatura']);
+            if ($change==1) {
+                $changed['asignatura']=true;
+            }
+        }
+        if ($changed) {
             header('Content-Type: application/json');
-            echo '{ "changed" : true }';
+            echo json_encode($changed, JSON_PRETTY_PRINT);
         } else {
             http_response_code(400);
         }
