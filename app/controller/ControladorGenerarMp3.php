@@ -14,18 +14,18 @@ class ControladorGenerarMp3 extends Controlador {
 
 		    //Generate the mp3
 		    $cmd = '/home/willywonka/cognitapp/app/scripts/tts.sh ' . $filename . ' "' . $text . '"';
-		    var_dump($cmd);
 		    shell_exec($cmd);
 
 		    //Path of the mp3 file
 		    $mp3 = '/tmp/' . $filename . '.mp3';
+		    echo 'Done';
 		    //Headers
 		    header("Content-Transfer-Encoding: binary");
 		    header("Content-Type: audio/mpeg");
 		    header('Content-length: ' . filesize($mp3)); 
 		    header('Content-Disposition: attachment;filename="'.$filename.'.mp3"');
 		    header('Cache-Control: no-cache');
-
+		    header('Access-Control-Allow-Origin: *');
 
 		    readfile($mp3);
 		    exit;
