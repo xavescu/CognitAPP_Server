@@ -206,3 +206,23 @@ function deleteResumen($nombre,$temaid) {
 
     return $stmt->execute();
 }
+
+
+function updateResumen($nombre,$temaid,$newName, $newText, $newTema) {
+    $db = getCon();
+
+    $insert = 'UPDATE Resumen SET texto = :newText WHERE id_documento = (SELECT id FROM Documento WHERE nombre LIKE :nombre AND id_tema = :temaid)';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
+    $stmt->execute();
+
+    $update = 'UPDATE Documento SET nombre :newName, id_tema = :newTema WHERE id_tema = :temaid AND nombre = :nombre';
+    $stmt = $db->prepare($update);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
+    $stmt->bindParam(':newTema', $newTema, PDO::PARAM_INT);
+    $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
