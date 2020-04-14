@@ -146,12 +146,42 @@ function updateTemaSubject($nombre,$asigid,$asignatura_id) {
     return $stmt->execute();
 }
 
-function updateUser($userid,$newName) {
+function updateUserUsername($userid,$newName) {
     $db = getCon();
     $insert = 'UPDATE Usuario SET username = :newName WHERE id = :userid';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
     $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
+
+function updateUserEmail($userid,$newemail) {
+    $db = getCon();
+    $insert = 'UPDATE Usuario SET email = :newemail WHERE id = :userid';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
+    $stmt->bindParam(':newemail', $newemail, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
+
+function updateUserPassword($userid,$newpass) {
+    $db = getCon();
+    $insert = 'UPDATE Usuario SET password = :newpass WHERE id = :userid';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
+    $stmt->bindParam(':newpass', $newpass, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
+
+function updateUserNombre($userid,$newnombre) {
+    $db = getCon();
+    $insert = 'UPDATE Usuario SET nombre = :newnombre WHERE id = :userid';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
+    $stmt->bindParam(':newnombre', $newnombre, PDO::PARAM_STR);
 
     return $stmt->execute();
 }
