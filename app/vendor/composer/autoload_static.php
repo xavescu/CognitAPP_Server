@@ -6,6 +6,20 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitf9a01a89066f9a6aba6f417251dd4d29
 {
+    public static $prefixLengthsPsr4 = array (
+        't' => 
+        array (
+            'thiagoalessio\\TesseractOCR\\' => 27,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'thiagoalessio\\TesseractOCR\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/thiagoalessio/tesseract_ocr/src',
+        ),
+    );
+
     public static $classMap = array (
         'AltoRouter' => __DIR__ . '/..' . '/altorouter/altorouter/AltoRouter.php',
     );
@@ -13,6 +27,8 @@ class ComposerStaticInitf9a01a89066f9a6aba6f417251dd4d29
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInitf9a01a89066f9a6aba6f417251dd4d29::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitf9a01a89066f9a6aba6f417251dd4d29::$prefixDirsPsr4;
             $loader->classMap = ComposerStaticInitf9a01a89066f9a6aba6f417251dd4d29::$classMap;
 
         }, null, ClassLoader::class);

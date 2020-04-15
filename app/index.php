@@ -117,6 +117,14 @@ $router->map('POST', '/updateUser', function() {
     $c->serve();
 });
 
+/* OCR */
+$router->map('POST', '/ocr', function() {
+    require __DIR__ . '/controller/ControladorOCR.php';
+    $c = new ControladorOCR();
+    $c->serve();
+});
+
+
 $match = $router->match();
 
 if( is_array($match) && is_callable( $match['target'] ) ) {
