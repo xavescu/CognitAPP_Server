@@ -80,6 +80,7 @@ CREATE TABLE Resumen (
 	id int AUTO_INCREMENT NOT NULL,
 	id_documento int NOT NULL,
 	texto longtext NOT NULL,
+	tipo int(1) NOT NULL DEFAULT 0,
 	PRIMARY KEY(id),
 	FOREIGN KEY(id_documento) REFERENCES Documento(id)
 );

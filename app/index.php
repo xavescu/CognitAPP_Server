@@ -104,6 +104,31 @@ $router->map('POST', '/changeResumen', function() {
     $c->serve();
 });
 
+/* EXAMENES */
+$router->map('POST', '/storeExamen', function() {
+    require __DIR__ . '/controller/ControladorGuardarExamen.php';
+    $c = new ControladorGuardarExamen();
+    $c->serve();
+});
+
+$router->map('POST', '/queryExamenes', function() {
+    require __DIR__ . '/controller/ControladorConsultaExamenes.php';
+    $c = new ControladorConsultaExamenes();
+    $c->serve();
+});
+
+$router->map('POST', '/deleteExamen', function() {
+    require __DIR__ . '/controller/ControladorBorrarExamen.php';
+    $c = new ControladorBorrarExamen();
+    $c->serve();
+});
+
+$router->map('POST', '/changeExamen', function() {
+    require __DIR__ . '/controller/ControladorCambiarExamen.php';
+    $c = new ControladorCambiarExamen();
+    $c->serve();
+});
+
 /* USER */
 $router->map('POST', '/queryUser', function() {
     require __DIR__ . '/controller/ControladorConsultaUsuario.php';

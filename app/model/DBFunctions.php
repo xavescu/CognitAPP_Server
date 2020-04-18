@@ -226,7 +226,7 @@ function deleteDocumento($nombre,$temaid) {
 
 function getResumenesByTemaId($id) {
     $db = getCon();
-    $stmt = $db->prepare("SELECT D.id AS id_documento, D.nombre AS nombre, R.texto AS texto FROM Documento D JOIN Resumen R ON D.id = R.id_documento WHERE D.id_tema = ?");
+    $stmt = $db->prepare("SELECT D.id AS id_documento, D.nombre AS nombre, R.texto AS texto FROM Documento D JOIN Resumen R ON D.id = R.id_documento WHERE D.id_tema = ? AND R.tipo = 0");
     $stmt->execute(array($id));
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -283,4 +283,22 @@ function updateResumenTema($nombre,$temaid, $newTema) {
     $stmt->bindParam(':newTema', $newTema, PDO::PARAM_INT);
 
     return $stmt->execute();
+}
+
+function insertExamen($iddocumento, $texto) {
+    $db = getCon();
+    $insert = 'INSERT INTO Resumen(id_documento,texto, tipo) VALUES' . '(:iddocumento,:text, 1)';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':iddocumento', $iddocumento, PDO::PARAM_STR);
+    $stmt->bindParam(':text', $texto, PDO::PARAM_STR);
+
+    return $stmt->execute();
+}
+
+function getExamenesByTemaId($id) {
+    $db = getCon();
+    $stmt = $db->prepare("SELECT D.id AS id_documento, D.nombre AS nombre, R.texto AS texto FROM Documento D JOIN Resumen R ON D.id = R.id_documento WHERE D.id_tema = ? AND R.tipo = 1");
+    $stmt->execute(array($id));
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
