@@ -16,7 +16,7 @@ class ControladorLogin extends Controlador {
 			$asignaturas = getAssignaturasByUserId($response['id']);
 			$response['asignaturas'] = $asignaturas;
 			$response['status'] = true;
-			
+
 			header('Content-Type: application/json');
 			echo json_encode($response, JSON_PRETTY_PRINT);
 		}
