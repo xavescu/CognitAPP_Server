@@ -35,10 +35,13 @@ class ControladorCambiarUsuario extends Controlador {
             }
         }
         if ($changed) {
+            $changed['status'] = true;
             header('Content-Type: application/json');
             echo json_encode($changed, JSON_PRETTY_PRINT);
         } else {
             http_response_code(400);
+            header('Content-Type: application/json');
+            echo '{ "status" : False }';
         }
 
     }

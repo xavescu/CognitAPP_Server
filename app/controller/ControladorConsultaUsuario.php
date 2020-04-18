@@ -10,8 +10,11 @@ class ControladorConsultaUsuario extends Controlador {
 
         if(!$response) {
             http_response_code(400);
+            header('Content-Type: application/json');
+            echo '{ "status" : False }';
         } else {
             header('Content-Type: application/json');
+            $response['status'] = true;
             echo json_encode($response, JSON_PRETTY_PRINT);
         }
     }

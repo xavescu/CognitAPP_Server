@@ -7,9 +7,11 @@ class ControladorCambiarAsignatura extends Controlador {
         $inserted = updateAsignatura($_POST['nombre'],$_POST['id'],$_POST['nuevonombre']);
         if ($inserted == 1) {
             header('Content-Type: application/json');
-            echo '{ "changed" : true }';
+            echo '{ "status" : True }';
         } else {
             http_response_code(400);
+            header('Content-Type: application/json');
+            echo '{ "status" : False }';
         }
     }
 

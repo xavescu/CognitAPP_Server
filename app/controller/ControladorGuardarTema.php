@@ -7,9 +7,11 @@ class ControladorGuardarTema extends Controlador {
         $inserted = insertTema($_POST['nombre'],$_POST['id']);
         if ($inserted == 1) {
             header('Content-Type: application/json');
-            echo '{ "status" : true }';
+            echo '{ "status" : True }';
         } else {
             http_response_code(400);
+            header('Content-Type: application/json');
+            echo '{ "status" : False }';
         }
     }
 
