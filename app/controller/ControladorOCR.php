@@ -12,7 +12,7 @@ class ControladorOCR extends Controlador {
         //echo '<pre>';
         $isuploadOk = in_array($imageFileType, array('png', 'jpg', 'jpeg'));
         if(!$isuploadOk) {
-            echo '{"status": False}';
+            echo '{"status": false}';
             http_response_code(400);
         } else {
             echo (new TesseractOCR($_FILES["img"]["tmp_name"]))->run();

@@ -11,7 +11,7 @@ class ControladorLogin extends Controlador {
 		if(!$response) {
 			http_response_code(401);
             header('Content-Type: application/json');
-            echo '{ "status" : False }';
+            echo '{ "status" : false }';
 		} else {
 			$asignaturas = getAssignaturasByUserId($response['id']);
 			$response['asignaturas'] = $asignaturas;

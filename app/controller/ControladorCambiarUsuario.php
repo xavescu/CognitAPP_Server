@@ -41,7 +41,7 @@ class ControladorCambiarUsuario extends Controlador {
         } else {
             http_response_code(400);
             header('Content-Type: application/json');
-            echo '{ "status" : False }';
+            echo '{ "status" : false }';
         }
 
     }

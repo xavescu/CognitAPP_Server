@@ -11,7 +11,7 @@ class ControladorConsultaAsignaturas extends Controlador {
 	        echo json_encode($asignaturas, JSON_PRETTY_PRINT);
 	    } else {
 	        header('Content-Type: application/json');
-	        echo '{"status": False}';
+	        echo '{"status": false}';
 	    }
     }
 

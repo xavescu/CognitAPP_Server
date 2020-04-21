@@ -9,17 +9,17 @@ class ControladorGuardarResumen extends Controlador {
 	        $inserted = insertResumen($doc['id'], $_POST['texto']);
 	        if ($inserted == 1) {
 	            header('Content-Type: application/json');
-	            echo '{ "status" : True }';
+	            echo '{ "status" : true }';
 	        } else {
 	            http_response_code(402);
 	            header('Content-Type: application/json');
-	            echo '{ "status" : False }';
+	            echo '{ "status" : false }';
 	        }
 	    } else {
 	    	deleteDocumento($_POST['nombre'], $_POST['id']);
 	    	http_response_code(401);
             header('Content-Type: application/json');
-            echo '{ "status" : False }';
+            echo '{ "status" : false }';
 	    }
     }
 
