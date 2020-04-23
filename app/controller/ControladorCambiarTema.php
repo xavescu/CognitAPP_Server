@@ -11,8 +11,9 @@ class ControladorCambiarTema extends Controlador {
                 $changed['nombre'] = true;
             }
         }
+        $nombre = empty($_POST['nuevonombre']) ? $_POST['nombre'] : $_POST['nuevonombre'];
         if ($_POST['nuevaasignatura']) {
-            $change=updateTemaSubject($_POST['nombre'],$_POST['id'],$_POST['nuevaasignatura']);
+            $change=updateTemaSubject($nombre,$_POST['id'],$_POST['nuevaasignatura']);
             if ($change==1) {
                 $changed['asignatura']=true;
             }
