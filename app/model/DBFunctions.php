@@ -142,7 +142,6 @@ function updateTemaSubject($nombre,$asigid,$asignatura_id) {
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
     $stmt->bindParam(':asignatura_id', $asignatura_id, PDO::PARAM_INT);
-
     return $stmt->execute();
 }
 
