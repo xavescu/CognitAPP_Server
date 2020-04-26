@@ -124,6 +124,28 @@ function deleteTema($nombre,$asigid) {
     return $stmt->execute();
 }
 
+function existsTema($nombre, $asigid) {
+    $db = getCon();
+    $select = 'SELECT * FROM Tema WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
+    $stmt = $db->prepare($select);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return !empty($stmt->fetch(PDO::FETCH_ASSOC));
+}
+
+function existsAsignatura($nombre, $userid) {
+    $db = getCon();
+    $select = 'SELECT * FROM Asignatura WHERE nombre LIKE :nombre AND id_usuario = :userid';
+    $stmt = $db->prepare($select);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return !empty($stmt->fetch(PDO::FETCH_ASSOC));
+}
+
 function updateTemaNombre($nombre,$asigid,$newName) {
     $db = getCon();
     $insert = 'UPDATE Tema SET nombre = :newName WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
