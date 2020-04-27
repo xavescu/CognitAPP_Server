@@ -18,7 +18,7 @@ class ControladorCambiarResumen extends Controlador {
             }
         }
         if ($_POST['nuevoTema']) {
-            $change=updateResumenTema($_POST['nombre'],$_POST['id'],$_POST['nuevotema']);
+            $change=updateResumenTema($_POST['nombre'],$_POST['id'],$_POST['nuevoTema']);
             if ($change==1) {
                 $changed['tema']=true;
             }
