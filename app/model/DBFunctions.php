@@ -269,42 +269,52 @@ function deleteResumen($nombre,$temaid) {
     return $stmt->execute();
 }
 
-
-function updateResumenTexto($nombre,$temaid, $newText) {
+/* RESUMEN/EXAMEN */
+function updateResumenNombre($id, $nombre) {
     $db = getCon();
 
-    $insert = 'UPDATE Resumen SET texto = :newText WHERE id_documento = (SELECT id FROM Documento WHERE nombre LIKE :nombre AND id_tema = :temaid)';
+    $insert = 'UPDATE Documento SET nombre = :nombre WHERE id = (SELECT id_documento FROM Resumen WHERE id = :id)';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
-    $stmt->bindParam(':newText', $newText, PDO::PARAM_STR);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);;
 
     return $stmt->execute();
 }
 
-function updateResumenNombre($nombre,$temaid,$newName) {
+function updateResumenTexto($id, $texto) {
     $db = getCon();
 
-    $update = 'UPDATE Documento SET nombre = :newName WHERE id_tema = :temaid AND nombre = :nombre';
-    $stmt = $db->prepare($update);
-    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
-    $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+    $insert = 'UPDATE Resumen SET texto = :texto WHERE id = :id';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':texto', $texto, PDO::PARAM_STR);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);;
 
     return $stmt->execute();
 }
 
-function updateResumenTema($nombre,$temaid, $newTema) {
+function updateResumenTipo($id, $tipo) {
     $db = getCon();
 
-    $update = 'UPDATE Documento SET id_tema = :newTema WHERE id_tema = :temaid AND nombre = :nombre';
-    $stmt = $db->prepare($update);
-    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
-    $stmt->bindParam(':newTema', $newTema, PDO::PARAM_INT);
+    $insert = 'UPDATE Resumen SET tipo = :tipo WHERE id = :id';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':tipo', $tipo, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);;
 
     return $stmt->execute();
 }
+
+function updateResumenTema($id, $tema) {
+    $db = getCon();
+
+    $insert = 'UPDATE Documento SET id_tema = :tema WHERE id = (SELECT id_documento FROM Resumen WHERE id = :id)';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':tema', $tema, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);;
+
+    return $stmt->execute();
+}
+
+/*    */
 
 function insertExamen($iddocumento, $texto) {
     $db = getCon();

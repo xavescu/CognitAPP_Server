@@ -7,10 +7,6 @@ $router->map( 'GET', '/', function() {
     echo 'cognitapp';
 });
 
-/*$router->map( 'GET', '/article/[a:wiki]', function($wiki) {
-    require __DIR__ . '/controller/articleWiki.php';
-});*/
-
 $router->map('POST', '/login', function() {
     require __DIR__ . '/controller/ControladorLogin.php';
     $c = new ControladorLogin();
