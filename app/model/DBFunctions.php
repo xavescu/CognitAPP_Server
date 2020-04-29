@@ -125,12 +125,12 @@ function deleteTema($nombre,$asigid) {
     return $stmt->execute();
 }
 
-function existsTema($nombre, $asigid) {
+function existsTema($id, $nombre) {
     $db = getCon();
-    $select = 'SELECT * FROM Tema WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
+    $select = 'SELECT * FROM Tema WHERE nombre LIKE :nombre AND id_asignatura = (SELECT id_asignatura FROM Tema WHERE id = :id)';
     $stmt = $db->prepare($select);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
     $stmt->execute();
     
     return !empty($stmt->fetch(PDO::FETCH_ASSOC));
@@ -147,24 +147,34 @@ function existsAsignatura($id, $nombre) {
     return !empty($stmt->fetch(PDO::FETCH_ASSOC));
 }
 
-function updateTemaNombre($nombre,$asigid,$newName) {
+function existsResumen($id, $nombre) {
     $db = getCon();
-    $insert = 'UPDATE Tema SET nombre = :newName WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
+    $select = 'SELECT * FROM Documento WHERE nombre LIKE :nombre AND id_tema = (SELECT id_tema FROM Documento WHERE id = :id)';
+    $stmt = $db->prepare($select);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    
+    return !empty($stmt->fetch(PDO::FETCH_ASSOC));
+}
+
+function updateTemaNombre($id, $nombre) {
+    $db = getCon();
+    $insert = 'UPDATE Tema SET nombre = :nombre WHERE id = :id';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
-    $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
     return $stmt->execute();
 }
 
-function updateTemaSubject($nombre,$asigid,$asignatura_id) {
+function updateTemaSubject($id, $subject) {
     $db = getCon();
-    $insert = 'UPDATE Tema SET id_asignatura = :asignatura_id WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
+    $insert = 'UPDATE Tema SET id_asignatura = :subject WHERE id = :id';
     $stmt = $db->prepare($insert);
-    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
-    $stmt->bindParam(':asignatura_id', $asignatura_id, PDO::PARAM_INT);
+    $stmt->bindParam(':subject', $subject, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
     return $stmt->execute();
 }
 
@@ -226,12 +236,13 @@ function insertDocumento($idtema, $nombre) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function insertResumen($iddocumento, $texto) {
+function insertResumen($iddocumento, $texto, $tipo) {
     $db = getCon();
-    $insert = 'INSERT INTO Resumen(id_documento,texto) VALUES' . '(:iddocumento,:text)';
+    $insert = 'INSERT INTO Resumen(id_documento,texto, tipo) VALUES' . '(:iddocumento,:text, :tipo)';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':iddocumento', $iddocumento, PDO::PARAM_STR);
     $stmt->bindParam(':text', $texto, PDO::PARAM_STR);
+    $stmt->bindParam(':tipo', $tipo, PDO::PARAM_INT);
 
     return $stmt->execute();
 }
@@ -248,7 +259,7 @@ function deleteDocumento($nombre,$temaid) {
 
 function getResumenesByTemaId($id) {
     $db = getCon();
-    $stmt = $db->prepare("SELECT D.id AS id_documento, D.nombre AS nombre, R.texto AS texto FROM Documento D JOIN Resumen R ON D.id = R.id_documento WHERE D.id_tema = ? AND R.tipo = 0");
+    $stmt = $db->prepare("SELECT D.id AS id, D.nombre AS nombre, R.texto AS texto FROM Documento D JOIN Resumen R ON D.id = R.id_documento WHERE D.id_tema = ? AND R.tipo = 0");
     $stmt->execute(array($id));
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

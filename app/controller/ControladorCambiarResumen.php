@@ -6,8 +6,12 @@ class ControladorCambiarResumen extends Controlador {
     public function serve() {
         $errs  = array(false, false, false, false);
 
-        if (isset($_POST['nombre']))
-            $errs[0] = !updateResumenNombre($_POST['id'], $_POST['nombre']);
+        if (isset($_POST['nombre'])) {
+            if(!existsResumen($_POST['id'], $_POST['nombre']))
+                $errs[0] = !updateResumenNombre($_POST['id'], $_POST['nombre']);
+            else 
+                $errs[0] = true;
+        }
 
         if (isset($_POST['texto']))
             $errs[1] = !updateResumenTexto($_POST['id'], $_POST['texto']);
