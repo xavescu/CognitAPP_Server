@@ -284,7 +284,7 @@ function deleteResumen($id_doc) {
 function updateResumenNombre($id, $nombre) {
     $db = getCon();
 
-    $insert = 'UPDATE Documento SET nombre = :nombre WHERE id = (SELECT id_documento FROM Resumen WHERE id = :id)';
+    $insert = 'UPDATE Documento SET nombre = :nombre WHERE id = :id';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);;
@@ -295,7 +295,7 @@ function updateResumenNombre($id, $nombre) {
 function updateResumenTexto($id, $texto) {
     $db = getCon();
 
-    $insert = 'UPDATE Resumen SET texto = :texto WHERE id = :id';
+    $insert = 'UPDATE Resumen SET texto = :texto WHERE id_documento = :id';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':texto', $texto, PDO::PARAM_STR);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);;
@@ -306,7 +306,7 @@ function updateResumenTexto($id, $texto) {
 function updateResumenTipo($id, $tipo) {
     $db = getCon();
 
-    $insert = 'UPDATE Resumen SET tipo = :tipo WHERE id = :id';
+    $insert = 'UPDATE Resumen SET tipo = :tipo WHERE id_documento = :id';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':tipo', $tipo, PDO::PARAM_INT);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);;
@@ -317,7 +317,7 @@ function updateResumenTipo($id, $tipo) {
 function updateResumenTema($id, $tema) {
     $db = getCon();
 
-    $insert = 'UPDATE Documento SET id_tema = :tema WHERE id = (SELECT id_documento FROM Resumen WHERE id = :id)';
+    $insert = 'UPDATE Documento SET id_tema = :tema WHERE id = :id';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':tema', $tema, PDO::PARAM_INT);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);;
