@@ -265,18 +265,17 @@ function getResumenesByTemaId($id) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function deleteResumen($nombre,$temaid) {
+function deleteResumen($id_doc) {
     $db = getCon();
-    $delete = 'DELETE FROM Resumen WHERE id_documento LIKE (SELECT id FROM Documento WHERE nombre LIKE :nombre)';
+    $delete = 'DELETE FROM Resumen WHERE id_documento = :id_doc';
     $stmt = $db->prepare($delete);
-    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':id_doc', $id_doc, PDO::PARAM_INT);
 
-    return $stmt->execute();
+    $stmt->execute();
 
-    $delete = 'DELETE FROM Documento WHERE nombre LIKE :nombre AND id_tema = :temaid';
+    $delete = 'DELETE FROM Documento WHERE id = :id_doc';
     $stmt = $db->prepare($delete);
-    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(':temaid', $temaid, PDO::PARAM_INT);
+    $stmt->bindParam(':id_doc', $id_doc, PDO::PARAM_INT);
 
     return $stmt->execute();
 }
