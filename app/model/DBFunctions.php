@@ -75,12 +75,11 @@ function insertAsignatura($nombre,$userid) {
     return $stmt->execute();
 }
 
-function deleteAsignatura($nombre,$userid) {
+function deleteAsignatura($id) {
     $db = getCon();
-    $insert = 'DELETE FROM Asignatura WHERE nombre LIKE :nombre AND id_usuario = :userid';
+    $insert = 'DELETE FROM Asignatura WHERE id = :id';
     $stmt = $db->prepare($insert);
-    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
     return $stmt->execute();
 }
@@ -115,12 +114,11 @@ function getTemasByAssignaturaId($id) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function deleteTema($nombre,$asigid) {
+function deleteTema($id) {
     $db = getCon();
-    $insert = 'DELETE FROM Tema WHERE nombre LIKE :nombre AND id_asignatura = :asigid';
+    $insert = 'DELETE FROM Tema WHERE id = :id';
     $stmt = $db->prepare($insert);
-    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
-    $stmt->bindParam(':asigid', $asigid, PDO::PARAM_INT);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
     return $stmt->execute();
 }

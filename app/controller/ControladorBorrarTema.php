@@ -4,7 +4,7 @@ require_once('controller/Controlador.php');
 class ControladorBorrarTema extends Controlador {
 
     public function serve() {
-        $deleted = deleteTema($_POST['nombre'],$_POST['id']);
+        $deleted = deleteTema($_POST['id']);
         if ($deleted == 1) {
             header('Content-Type: application/json');
             echo '{ "status" : true }';
