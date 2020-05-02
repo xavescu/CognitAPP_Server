@@ -4,7 +4,7 @@ require_once('controller/Controlador.php');
 class ControladorCambiarAsignatura extends Controlador {
 
     public function serve() {
-        if(empty($_POST['nombre'])) {
+        if(!empty($_POST['nombre'])) {
             if(!existsAsignatura($_POST['id'], $_POST['nombre'])) {
                 $err = !updateAsignatura($_POST['id'], $_POST['nombre']);
                 if($err) {
