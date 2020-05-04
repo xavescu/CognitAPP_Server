@@ -6,7 +6,7 @@ class ControladorGenerarMp3 extends Controlador {
     public function serve() {
     	if(empty($_POST['text']) || empty($_POST['filename'])) {
     		http_response_code(400);
-    		echo '{"error": true}';
+    		echo '{"status": false}';
     	}
     	else {
 		    $text = $_POST['text'];
