@@ -39,7 +39,7 @@ CREATE TABLE Fita (
 	fecha_limite date NOT NULL,
 	tipo_recordatorio int(1) NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_usuario) REFERENCES Usuario(id)
+	FOREIGN KEY(id_usuario) REFERENCES Usuario(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Asignatura (
@@ -47,7 +47,7 @@ CREATE TABLE Asignatura (
 	nombre varchar(50) NOT NULL,
 	id_usuario int NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_usuario) REFERENCES Usuario(id)
+	FOREIGN KEY(id_usuario) REFERENCES Usuario(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Tema (
@@ -55,7 +55,7 @@ CREATE TABLE Tema (
 	nombre varchar(50) NOT NULL,
 	id_asignatura int NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id)
+	FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Examen (
@@ -64,7 +64,7 @@ CREATE TABLE Examen (
 	nombre varchar(50) NOT NULL,
 	fecha date NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id)
+	FOREIGN KEY(id_asignatura) REFERENCES Asignatura(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Documento (
@@ -73,7 +73,7 @@ CREATE TABLE Documento (
 	nombre varchar(50) NOT NULL,
 	ruta varchar(100),
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_tema) REFERENCES Tema(id)
+	FOREIGN KEY(id_tema) REFERENCES Tema(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Resumen (
@@ -82,7 +82,7 @@ CREATE TABLE Resumen (
 	texto longtext NOT NULL,
 	tipo int(1) NOT NULL DEFAULT 0,
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_documento) REFERENCES Documento(id)
+	FOREIGN KEY(id_documento) REFERENCES Documento(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Compartido (
@@ -90,8 +90,8 @@ CREATE TABLE Compartido (
 	id_documento int NOT NULL,
 	codigo varchar(6) NOT NULL,
 	CONSTRAINT pk PRIMARY KEY(id_documento, id_usuario),
-	FOREIGN KEY(id_usuario) REFERENCES Usuario(id),
-	FOREIGN KEY(id_documento) REFERENCES Documento(id)
+	FOREIGN KEY(id_usuario) REFERENCES Usuario(id) ON DELETE CASCADE,
+	FOREIGN KEY(id_documento) REFERENCES Documento(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Test (
@@ -99,7 +99,7 @@ CREATE TABLE Test (
 	nombre varchar(100) NOT NULL,
 	id_documento int NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_documento) REFERENCES Documento(id)
+	FOREIGN KEY(id_documento) REFERENCES Documento(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Pregunta (
@@ -107,7 +107,7 @@ CREATE TABLE Pregunta (
 	id_test int NOT NULL,
 	texto varchar(100) NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_test) REFERENCES Test(id)
+	FOREIGN KEY(id_test) REFERENCES Test(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Respuesta (
@@ -115,5 +115,5 @@ CREATE TABLE Respuesta (
 	id_pregunta int NOT NULL,
 	texto varchar(200) NOT NULL,
 	PRIMARY KEY(id),
-	FOREIGN KEY(id_pregunta) REFERENCES Pregunta(id)
+	FOREIGN KEY(id_pregunta) REFERENCES Pregunta(id) ON DELETE CASCADE
 );
