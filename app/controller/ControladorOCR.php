@@ -23,14 +23,18 @@ class ControladorOCR extends Controlador {
         $ifp = fopen( $output_file, 'wb' ); 
         fwrite( $ifp, base64_decode($base64_string));
         fclose( $ifp ); 
-        
+
         return $output_file; 
     }
 
     public function serve64() {
         
         $file = ControladorOCR::base64_to_jpeg($_POST['img'], '/tmp/tmp.jpg');
-
-        echo (new TesseractOCR($file))->run();
+        try {
+            echo (new TesseractOCR($file))->run();
+        } catch(Exception $e) {
+            echo '{"status": false}';
+            http_response_code(400);
+        }
     }
 }
