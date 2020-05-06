@@ -17,5 +17,20 @@ class ControladorOCR extends Controlador {
         } else {
             echo (new TesseractOCR($_FILES["img"]["tmp_name"]))->run();
         }
-	}
+    }
+
+    function base64_to_jpeg($base64_string, $output_file) {
+        $ifp = fopen( $output_file, 'wb' ); 
+        fwrite( $ifp, base64_decode($base64_string));
+        fclose( $ifp ); 
+        
+        return $output_file; 
+    }
+
+    public function serve64() {
+        
+        $file = ControladorOCR::base64_to_jpeg($_POST['img'], '/tmp/tmp.jpg');
+
+        echo (new TesseractOCR($file))->run();
+    }
 }

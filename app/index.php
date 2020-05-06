@@ -127,6 +127,12 @@ $router->map('POST', '/ocr', function() {
     $c->serve();
 });
 
+$router->map('POST', '/ocr64', function() {
+    require __DIR__ . '/controller/ControladorOCR.php';
+    $c = new ControladorOCR();
+    $c->serve64();
+});
+
 
 $match = $router->match();
 
