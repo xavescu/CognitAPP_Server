@@ -5,6 +5,10 @@ class ControladorGuardarResumen extends Controlador {
 
     public function serve() {
         $doc = insertDocumento($_POST['id'], $_POST['nombre']);
+        
+        if(!isset($_POST['foto']))
+        	$_POST['foto'] = 0;
+
         if (!empty($doc['id'])) {
 	        $inserted = insertResumen($doc['id'], $_POST['texto'], $_POST['tipo'], $_POST['foto']);
 	        if ($inserted == 1) {
