@@ -114,6 +114,12 @@ $router->map('POST', '/queryUser', function() {
     $c->serve();
 });
 
+$router->map('POST', '/disableTutorial', function() {
+    require __DIR__ . '/controller/ControladorDesactivarTutorial.php';
+    $c = new ControladorDesactivarTutorial();
+    $c->serve();
+});
+
 $router->map('POST', '/updateUser', function() {
     require __DIR__ . '/controller/ControladorCambiarUsuario.php';
     $c = new ControladorCambiarUsuario();

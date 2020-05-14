@@ -27,6 +27,7 @@ CREATE TABLE Usuario (
 	username varchar(25) NOT NULL,
 	password varchar(32) NOT NULL,
 	karma int NOT NULL DEFAULT 0,
+	tutorial int(1) NOT NULL DEFAULT 1,
 	PRIMARY KEY(id)
 );
 

@@ -2,21 +2,16 @@
 
 require_once('controller/Controlador.php');
 
-class ControladorLogin extends Controlador {
+class ControladorDesactivarTutorial extends Controlador {
 	public function serve() {
-		$response = checkCredentialsByUsername($_POST['user'], $_POST['password']);
-		if (!$response)
-			$response = checkCredentialsByEmail($_POST['user'], $_POST['password']);
+		$response = disableTutorial($_POST['id']);
 
 		if(!$response) {
 			http_response_code(401);
             header('Content-Type: application/json');
             echo '{ "status" : false }';
 		} else {
-			$asignaturas = getAssignaturasByUserId($response['id']);
-			$response['asignaturas'] = $asignaturas;
 			$response['status'] = true;
-			$response['tutorial'] = $response['tutorial'];
 			
 			header('Content-Type: application/json');
 			echo json_encode($response, JSON_PRETTY_PRINT);

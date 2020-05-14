@@ -14,7 +14,7 @@ function isValidToken($token, $user_id, $ip) {
 
 function checkCredentialsByUsername($username, $password) {
 	$db = getCon();
-	$stmt = $db->prepare("SELECT id, email, nombre, username, karma FROM Usuario WHERE username LIKE ? AND password LIKE ?");
+	$stmt = $db->prepare("SELECT id, email, nombre, username, karma, tutorial FROM Usuario WHERE username LIKE ? AND password LIKE ?");
 	$stmt->execute(array($username, $password));
 
 	return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -342,4 +342,14 @@ function getExamenesByTemaId($id) {
     $stmt->execute(array($id));
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function disableTutorial($id) {
+    $db = getCon();
+
+    $insert = 'UPDATE Usuario SET tutorial = 0 WHERE id = :id';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);;
+
+    return $stmt->execute();
 }
