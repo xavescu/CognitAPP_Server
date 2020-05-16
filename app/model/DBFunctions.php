@@ -353,3 +353,33 @@ function disableTutorial($id) {
 
     return $stmt->execute();
 }
+
+function insertFita($id, $nombre, $descripcion, $fecha_limite, $tipo_recordatorio) {
+    $db = getCon();
+    $insert = 'INSERT INTO Fita(id_usuario, nombre, descripcion, fecha_limite, tipo_recordatorio) VALUES' . '(:idusuario, :nombre, :descripcion, :fechalimite, :tiporecordatorio)';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':idusuario', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+    $stmt->bindParam(':descripcion', $descripcion, PDO::PARAM_STR);
+    $stmt->bindParam(':fechalimite', $fecha_limite, PDO::PARAM_STR);
+    $stmt->bindParam(':tiporecordatorio', $tipo_recordatorio, PDO::PARAM_INT);
+
+    return $stmt->execute();
+}
+
+function getFites($id) {
+    $db = getCon();
+    $stmt = $db->prepare("SELECT id, nombre, descripcion, hecho, fecha_limite, tipo_recordatorio FROM Fita WHERE id_usuario = ?");
+    $stmt->execute(array($id));
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function completarFita($id) {
+    $db = getCon();
+    $insert = 'UPDATE Fita SET hecho = 1 WHERE id = :id';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+
+    return $stmt->execute();
+}

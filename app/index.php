@@ -139,6 +139,26 @@ $router->map('POST', '/ocr64', function() {
     $c->serve64();
 });
 
+/* FITES */
+$router->map('POST', '/storeFita', function() {
+    require __DIR__ . '/controller/ControladorGuardarFita.php';
+    $c = new ControladorGuardarFita();
+    $c->serve();
+});
+
+$router->map('POST', '/getFites', function() {
+    require __DIR__ . '/controller/ControladorConsultaFites.php';
+    $c = new ControladorConsultaFites();
+    $c->serve();
+});
+
+$router->map('POST', '/completarFita', function() {
+    require __DIR__ . '/controller/ControladorCompletarFita.php';
+    $c = new ControladorCompletarFita();
+    $c->serve();
+});
+
+
 
 $match = $router->match();
 
