@@ -11,10 +11,9 @@ class ControladorDesactivarTutorial extends Controlador {
             header('Content-Type: application/json');
             echo '{ "status" : false }';
 		} else {
-			$response['status'] = true;
 			
 			header('Content-Type: application/json');
-			echo json_encode($response, JSON_PRETTY_PRINT);
+			echo '{"status": true}';
 		}
 	}
 }
