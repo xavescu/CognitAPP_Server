@@ -158,6 +158,13 @@ $router->map('POST', '/completarFita', function() {
     $c->serve();
 });
 
+/* COMPARTIR */
+
+$router->map('POST', '/share', function() {
+    require __DIR__ . '/controller/ControladorCompartir.php';
+    $c = new ControladorCompartir();
+    $c->serve();
+});
 
 
 $match = $router->match();

@@ -383,3 +383,21 @@ function completarFita($id) {
 
     return $stmt->execute();
 }
+
+function compartir($id, $usuario) {
+    $db = getCon();
+
+    $val = '';
+    for( $i=0; $i<6; $i++ ) {
+       $val .= chr( rand( 65, 90 ) );
+    }
+
+    $insert = 'INSERT INTO Compartido (id_documento, id_usuario, codigo) VALUES (:id, :usuario, :codigo)';
+    $stmt = $db->prepare($insert);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    $stmt->bindParam(':usuario', $usuario, PDO::PARAM_INT);
+    $stmt->bindParam(':codigo', $val, PDO::PARAM_STR);
+
+    $stmt->execute();   
+    return $val; 
+}
