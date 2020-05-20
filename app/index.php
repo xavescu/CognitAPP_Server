@@ -166,6 +166,12 @@ $router->map('POST', '/share', function() {
     $c->serve();
 });
 
+$router->map('GET', '/document/[a:code]', function($code) {
+    require __DIR__ . '/controller/ControladorDocument.php';
+    $c = new ControladorDocument($code);
+    $c->serve();
+});
+
 
 $match = $router->match();
 

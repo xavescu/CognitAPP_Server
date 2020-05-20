@@ -401,3 +401,13 @@ function compartir($id, $usuario) {
     $stmt->execute();   
     return $val; 
 }
+
+function getDocId($code) {
+    $db = getCon();
+    $stmt = $db->prepare("SELECT id_documento from Compartido WHERE codigo = :codigo");
+    $stmt->bindParam(':codigo', $code, PDO::PARAM_STR);
+
+    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    var_dump($results);
+    return 1;
+}
