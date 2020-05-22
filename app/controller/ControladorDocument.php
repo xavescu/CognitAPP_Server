@@ -6,8 +6,9 @@ use thiagoalessio\TesseractOCR\TesseractOCR;
 class ControladorDocument extends Controlador {
     function __construct($code) {
         try {
-            $doc = getDocId($code);
-            $attachment_location = $_SERVER["DOCUMENT_ROOT"] . "/../pdf/" . $doc . ".pdf";
+            //$doc = getDocId($code);
+            //$attachment_location = $_SERVER["DOCUMENT_ROOT"] . "/../pdf/" . $doc . ".pdf";
+            $attachment_location = '/home/pi/a.pdf';
             if (file_exists($attachment_location)) {
 
                 header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
