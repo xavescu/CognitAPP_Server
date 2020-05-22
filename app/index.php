@@ -100,6 +100,12 @@ $router->map('POST', '/changeResumen', function() {
     $c->serve();
 });
 
+$router->map('POST', '/getPdf', function() {
+    require __DIR__ . '/controller/ControladorDocument.php';
+    $c = new ControladorDocument('');
+    $c->serve();
+});
+
 /* EXAMENES */
 $router->map('POST', '/queryExamenes', function() {
     require __DIR__ . '/controller/ControladorConsultaExamenes.php';
