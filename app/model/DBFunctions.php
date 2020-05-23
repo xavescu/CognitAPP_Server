@@ -392,10 +392,10 @@ function compartir($id, $usuario) {
        $val .= chr( rand( 65, 90 ) );
     }
 
-    $insert = 'INSERT INTO Compartido (id_documento, id_usuario, codigo) VALUES (:id, :usuario, :codigo)';
+    $insert = 'INSERT INTO Compartido (id_documento, id_usuario, codigo) VALUES (:id, (SELECT id FROM Usuario WHERE username = :usuario), :codigo)';
     $stmt = $db->prepare($insert);
     $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-    $stmt->bindParam(':usuario', $usuario, PDO::PARAM_INT);
+    $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
     $stmt->bindParam(':codigo', $val, PDO::PARAM_STR);
 
     $stmt->execute();   

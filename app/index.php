@@ -102,7 +102,7 @@ $router->map('POST', '/changeResumen', function() {
 
 $router->map('POST', '/getPdf', function() {
     require __DIR__ . '/controller/ControladorDocument.php';
-    $c = new ControladorDocument('');
+    $c = new ControladorDocument('test');
     $c->serve();
 });
 
