@@ -264,6 +264,14 @@ function getResumenesByTemaId($id) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function getResumen($id) {
+    $db = getCon();
+    $stmt = $db->prepare("SELECT D.id AS id, D.nombre AS nombre, R.texto AS texto, R.tipo AS tipo, R.foto AS foto FROM Documento D JOIN Resumen R ON D.id = R.id_documento WHERE R.id = ?");
+    $stmt->execute(array($id));
+
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 function deleteResumen($id_doc) {
     $db = getCon();
     $delete = 'DELETE FROM Resumen WHERE id_documento = :id_doc';
@@ -410,4 +418,23 @@ function getDocId($code) {
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
     var_dump($results);
     return 1;
+}
+
+/* no es una db funcion pero la poso aqui tambe */
+
+function returnfile($location, $name) {
+    header($_SERVER["SERVER_PROTOCOL"] . " 200 OK");
+    header("Cache-Control: public"); // needed for internet explorer
+    header("Content-Type: application/zip");
+    header("Content-Transfer-Encoding: Binary");
+    header("Content-Length:".filesize($location));
+    header("Content-Disposition: attachment; filename=".$name.".pdf");
+    readfile($location);
+    die();
+}
+
+function generarfile($id) {
+    $resumen = getResumen($id);
+    file_put_contents("/home/pi/pdf/$id.tex", "\\documentclass{article}\\begin{document}\\LARGE{\\textbf{".$resumen[0]['nombre']."}}\\\\\\\\".$resumen[0]['texto']."\\end{document}");
+    shell_exec("cd /home/pi/pdf && pdflatex $id.tex");
 }
