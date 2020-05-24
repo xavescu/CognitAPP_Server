@@ -266,7 +266,7 @@ function getResumenesByTemaId($id) {
 
 function getResumen($id) {
     $db = getCon();
-    $stmt = $db->prepare("SELECT D.id AS id, D.nombre AS nombre, R.texto AS texto, R.tipo AS tipo, R.foto AS foto FROM Documento D JOIN Resumen R ON D.id = R.id_documento WHERE R.id = ?");
+    $stmt = $db->prepare("SELECT D.id AS id, D.nombre AS nombre, R.texto AS texto, R.tipo AS tipo, R.foto AS foto FROM Documento D JOIN Resumen R ON D.id = R.id_documento WHERE D.id = ?");
     $stmt->execute(array($id));
 
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -8,12 +8,12 @@ class ControladorGenerarPdf extends Controlador {
         $id = $_POST['id'];
         try {
             if (!empty($id)) {
-                if(file_exists('/home/pi/pdf/' . $id . '.pdf')) {
+                /*if(file_exists('/home/pi/pdf/' . $id . '.pdf')) {
                     returnfile('/home/pi/pdf/' . $id . '.pdf', 'CognitappFile.pdf');
-                } else {
+                } else {*/
                     generarfile($id);
                     returnfile('/home/pi/pdf/' . $id . '.pdf', 'CognitappFile.pdf');
-                }
+                /*}*/
             }
         } catch (Exception $e) {
             header('Content-Type: application/json');

@@ -8,12 +8,12 @@ class ControladorDocument extends Controlador {
         try {
             $id = getDocId($code);
             //$attachment_location = $_SERVER["DOCUMENT_ROOT"] . "/../pdf/" . $doc . ".pdf";
-            if(file_exists('/home/pi/pdf/' . $id . '.pdf')) {
+            /*if(file_exists('/home/pi/pdf/' . $id . '.pdf')) {
                     returnfile('/home/pi/pdf/' . $id . '.pdf', $code);
-            } else {
+            } else {*/
                 generarfile($id);
                 returnfile('/home/pi/pdf/' . $id . '.pdf', $code);
-            }
+            /*}*/
         } catch (Exception $e) {
             echo '{"status": false}';
         }
